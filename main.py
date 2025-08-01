@@ -28,27 +28,11 @@ def speak_text(command):
 def greeting():
     hour = int(datetime.datetime.now().hour)
     if hour < 12:
-        return "Good morning"
+        speak_text("Good morning")
     elif hour < 18:
-        return "Good afternoon"
+        speak_text("Good afternoon")
     else:
-        return "Good evening"
-
-
-def helping(query):
-    while True:
-        if 'open youtube' in query:
-            webbrowser.open("https://www.youtube.com/")
-
-        elif 'open google' in query:
-            webbrowser.open("https://www.google.com/")
-
-        elif 'time' in query:
-            strTime = datetime.datetime.now().strftime("%H:%M:%S")
-            return f"The current time is {strTime}"
-
-        else:
-            return "Sorry, I didn't understand that. Try again."
+        speak_text("Good evening")
 
 
 def main():
@@ -70,12 +54,14 @@ def main():
 
                 if my_text == 'open youtube':
                     speak_text('opening youtube')
-                    # helping('open youtube')
+                    webbrowser.open("https://www.youtube.com/")
                 elif my_text == 'open google':
                     speak_text('opening google')
-                    # helping('open google')
+                    webbrowser.open("https://www.google.com/")
                 elif my_text == 'time':
-                    speak_text(helping('time'))
+                    strTime = datetime.datetime.now().strftime("%H:%M:%S")
+                    time = "The current time is "+ strTime
+                    speak_text(time)
                 elif my_text == 'stop':
                     speak_text(contentGenaration.generate_content('bye'))
                     break
@@ -87,9 +73,10 @@ def main():
             print("Could not request results; {0}".format(e))
 
         except sr.UnknownValueError:
-            speak_text('Can you please say that again')
+            speak_text('Are you here? Can you say somthing')
             print("Could not understand audio")
 
 
 if __name__ == '__main__':
+    greeting()
     main()
