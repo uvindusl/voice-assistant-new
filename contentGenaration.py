@@ -4,14 +4,17 @@ from dotenv import dotenv_values
 
 config = dotenv_values(".env")
 
+# get gemini API key from .env file
 key = config['API_KEY']
 
 try:
+    # connecting with gemini
     client =genai.Client(api_key=key)
 except Exception as e:
     print('gemini not connected')
     client = None
 
+# this function will get text as parameter and according to parameter generate output
 def generate_content(paragraph):
     if not client:
         return "Error there is No API KEY initialized."

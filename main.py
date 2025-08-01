@@ -54,15 +54,15 @@ def main():
 
                 if my_text == 'open youtube':
                     speak_text('opening youtube')
-                    webbrowser.open("https://www.youtube.com/")
+                    webbrowser.open("https://www.youtube.com/") # opening youtube in browser
                 elif my_text == 'open github':
                     speak_text('opening github')
-                    webbrowser.open("https://github.com/")
+                    webbrowser.open("https://github.com/") # opening github in browser
                 elif my_text == 'stop':
                     speak_text(contentGenaration.generate_content('bye'))
                     break
                 else:
-                    speak_text(contentGenaration.generate_content(my_text))
+                    speak_text(contentGenaration.generate_content(my_text)) #
 
         except sr.RequestError as e:
             speak_text('Could not request results')
