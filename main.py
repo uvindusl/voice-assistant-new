@@ -19,6 +19,8 @@ engine.setProperty('volume', 1.0)
 voices = engine.getProperty('voices')
 engine.setProperty('voice',voices[1].id)
 
+name = 'Uvindu'
+
 # The function to convert text to speech now uses the pre-initialized engine
 def speak_text(command):
     engine.say(command)
@@ -28,11 +30,11 @@ def speak_text(command):
 def greeting():
     hour = int(datetime.datetime.now().hour)
     if hour < 12:
-        speak_text("Good morning")
+        speak_text(f"Good morning {name}")
     elif hour < 18:
-        speak_text("Good afternoon")
+        speak_text(f"Good afternoon {name}")
     else:
-        speak_text("Good evening")
+        speak_text(f"Good evening {name}")
 
 
 def main():
@@ -69,7 +71,8 @@ def main():
             print("Could not request results; {0}".format(e))
 
         except sr.UnknownValueError:
-            speak_text('Are you here? Can you say somthing')
+            speak_text(f'Are you here {name}')
+            speak_text(f'Can you say somthing')
             print("Could not understand audio")
 
 
