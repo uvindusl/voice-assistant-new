@@ -1,12 +1,9 @@
 import speech_recognition as sr
 import pyttsx3
-from google import genai
-from google.genai import types
-from dotenv import dotenv_values
+import contentGenaration
 
 # Initialize the recognizer
 r = sr.Recognizer()
-config = dotenv_values(".env")
 
 # Initialize the engine
 engine = pyttsx3.init()
@@ -21,17 +18,8 @@ engine.setProperty('volume', 1.0)
 voices = engine.getProperty('voices')
 engine.setProperty('voice', voices[1].id)  # Selecting a female voice
 
-
-key = config['API_KEY']
-
-try:
-    client =genai.Client(api_key=key)
-except Exception as e:
-    print('gemini not connected')
-    client = None
-
 # The function to convert text to speech now uses the pre-initialized engine
-def Speak_text(command):
+def speak_text(command):
     engine.say(command)
     engine.runAndWait()
 
@@ -52,40 +40,18 @@ def speech_recognizing():
                 MyText = r.recognize_google(audio2)
                 MyText = MyText.lower()
                 if (MyText == 'stop'):
-                    Speak_text('Goodbye')
+                    speak_text('Goodbye')
                     break
-                Speak_text(generate_content(MyText))
+                speak_text(contentGenaration.generate_content(MyText))
 
 
         except sr.RequestError as e:
+            speak_text('Could not request results')
             print("Could not request results; {0}".format(e))
 
         except sr.UnknownValueError:
+            speak_text('Could not recognize your voice')
             print("Could not understand audio")
-
-def generate_content(paragraph):
-    if not client:
-        return "Error there is No API KEY initialized."
-
-    try:
-        response = client.models.generate_content(
-            model="gemini-2.0-flash",
-            contents=paragraph,
-            config=types.GenerateContentConfig(
-                system_instruction="You are a Human. Your name is Harry.",
-                max_output_tokens=400,
-                temperature=0.3
-            )
-        )
-        if hasattr(response, 'text'):
-            return response.text
-        else:
-            print(f"Unexpected response: {response}")
-            return "Error: couldn't get expected response"
-
-    except Exception as e:
-        print(f"Error generating output: {e}")
-        return f"Failed to generate output ({e})"
 
 
 if __name__ == '__main__':
