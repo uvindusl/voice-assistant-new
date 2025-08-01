@@ -19,7 +19,7 @@ engine.setProperty('volume', 1.0)
 voices = engine.getProperty('voices')
 engine.setProperty('voice',voices[1].id)
 
-name = 'Uvindu'
+name = None
 
 # The function to convert text to speech now uses the pre-initialized engine
 def speak_text(command):
@@ -38,7 +38,7 @@ def greeting():
 
 
 def main():
-    while (1):
+    while True:
         try:
             # use the microphone as source for input.
             with sr.Microphone() as source2:
@@ -77,5 +77,6 @@ def main():
 
 
 if __name__ == '__main__':
+    name = input("What is your name? ")
     greeting()
     main()
