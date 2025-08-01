@@ -64,7 +64,7 @@ def main():
                     speak_text(contentGenaration.generate_content('bye'))
                     break
                 else:
-                    speak_text(contentGenaration.generate_content(my_text)) #
+                    speak_text(contentGenaration.generate_content(my_text))
 
         except sr.RequestError as e:
             speak_text('Could not request results')
