@@ -17,7 +17,7 @@ engine.setProperty('volume', 1.0)
 
 # Change voice
 voices = engine.getProperty('voices')
-engine.setProperty('voice', voices[1].id)  # Selecting a female voice
+engine.setProperty('voice',voices[1].id)
 
 # The function to convert text to speech now uses the pre-initialized engine
 def speak_text(command):
@@ -55,13 +55,9 @@ def main():
                 if my_text == 'open youtube':
                     speak_text('opening youtube')
                     webbrowser.open("https://www.youtube.com/")
-                elif my_text == 'open google':
-                    speak_text('opening google')
-                    webbrowser.open("https://www.google.com/")
-                elif my_text == 'time':
-                    strTime = datetime.datetime.now().strftime("%H:%M:%S")
-                    time = "The current time is "+ strTime
-                    speak_text(time)
+                elif my_text == 'open github':
+                    speak_text('opening github')
+                    webbrowser.open("https://github.com/")
                 elif my_text == 'stop':
                     speak_text(contentGenaration.generate_content('bye'))
                     break
